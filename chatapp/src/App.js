@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { Join } from './component/Join/Join';
+import './App.css'
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
+import { Chat } from './component/Chat/Chat';
+// import socketIO from "socket.io-client"
+
+// const ENDPOINT="http://localhost:5000/"
+// const socket=socketIO(ENDPOINT,{transports:['websocket']});
 
 function App() {
+  // basics socket ka yahi hai
+  // socket.on("connect",()=>{});
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     
+    <Router>
+    <Routes>
+      <Route exact path="/" element={<Join/>}></Route>
+      <Route exact path="/chat" element={<Chat/>}></Route>
+      </Routes>
+    </Router>
     </div>
   );
 }
