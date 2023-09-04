@@ -1,3 +1,5 @@
+// run code node ./index.js
+
 // import http from "http"
 const http=require("http");
 const express=require("express");
@@ -7,7 +9,7 @@ const cors=require("cors");
 // import {socketIO} from "socket.io"
 const socketIO=require("socket.io");
 const app = express();
-const port = 5000 || process.env.PORT;
+const port = 4000 || process.env.PORT;
 const users=[{}];
 app.use(cors()); // used for inter communication kisko kisko allow hai urls
 app.get("/",(req,res)=>{
@@ -29,8 +31,13 @@ socket.on('joined',(data)=>{
 })
 
 socket.on('discon',()=>{
+    socket.broadcast.emit('leave',{user:"Admin",msg:`${users[socket.id]} has left the chat`})
     console.log("User Left");
-});
+})
+socket.on('message',({message,id})=>{
+    io.emit('sendMessage',{user:users[id],msg:message,id:id})
+    // while joining saved user details with socket id
+})
 
 })
 
